@@ -1,5 +1,21 @@
-# CarND-Controls-PID
+﻿# CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
+
+---
+
+Student submission:
+
+The PID algorithm is used for both steering and throttle.  I had to use a PID on the throttle because I could not get stable steering PID parameters at high speeds on the corners.  I used the unmodified CTE value for both PID loops. The negative of the steering PID control value was used for the steering value.  The absolute value of the throttle PID was subtracted from one for the throttle vale.  No conversions were made and the steering and throttle positions from the simulator where not used.  Just the CTE value was only used.  I only used the integral constant on the steering PID and it was very small. I did not use it for the throttle PID as it only seemed to slow the response down.  The car gets around the track without going over the edge but drives somewhat erratic.
+
+It is very difficult to get smooth steering.  The CTE value given by the simulator seems to be a function of linearly interpolated points between the waypoints. This causes high errors after each waypoint due to the sharp change in direction.  I had to use a high differential value on the steering PID to compensate for these high disturbances and had to use a low integral value so it would allow for a quick response.  This allows the car to go somewhat fast but it is constantly oscillating across the center line of the road.
+
+My goal was to go as fast as possible but I could only reach about 65 mph on the long stretch.  This is because the car is constantly compensating for the error jumps at the waypoints which makes it drive back and forth over the centerline. I could slow it down considerably to smooth it out but then that is no fun since no other cars are on the road.
+
+I use negative values on the throttle to quickly slow down.  The brake lights also show up when you do this.  If you do not go negative then the car will just coast with a zero value.  I use a very high differential constant on the acceleration PID so when the vehicle gets close to the edge of the road on a curve it slow down very fast to make the curve. It took some time to twiddle this so it only braked on curves and not from the fast change in direction at the waypoints.
+
+The integral value on the steering PID did help a little.  Twiddling around a very small value aloud me to go about 4 mph higher but that is it.  Any higher or lower caused under or over dampening which results in the car going off course.
+
+I believe I could of spent more time twiddling the constants but my progress was getting slower and slower.  I kept finding my way back to the same magnitudes.  I tried implementing an auto tuning method similar to the twiddling algorithm but was unsuccessful in getting good values.  The simulator updates are very slow and so my method did not have enough time to develop so I just removed it.  I did however simulate it manually to get the values I have now.
 
 ---
 
