@@ -1,6 +1,6 @@
 #include "PID.h"
-
-/**
+#include <vector>
+/*
  * TODO: Complete the PID class. You may add any additional desired functions.
  */
 
@@ -25,11 +25,12 @@ void PID::UpdateError(double cte) {
 this->i_error += cte;
 this->d_error = cte - this->p_error;
 this->p_error = cte;
+this->err += cte*cte;
 }
 
 double PID::TotalError() {
   /**
    * TODO: Calculate and return the total error
    */
-  return this->Kp*this->p_error + this->Ki*this->i_error + this->Kp*this->p_error;;  // TODO: Add your total error calc here!
+  return this->Kp*this->p_error + this->Ki*this->i_error + this->Kd*this->d_error;;  // TODO: Add your total error calc here!
 }
